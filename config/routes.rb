@@ -1,4 +1,8 @@
 Snowday::Application.routes.draw do
+  resources :districts
+
+  resources :notifications
+
   root :to => "home#index"
 
   devise_for :users
