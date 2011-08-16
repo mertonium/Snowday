@@ -9,6 +9,8 @@ gem 'sqlite3'
 
 gem 'devise'
 
+gem 'postgis_adapter'
+
 # Use unicorn as the web server
 # gem 'unicorn'
 

@@ -50,9 +50,12 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.16)
+    nofxx-georuby (1.9.2)
     nokogiri (1.5.0)
     orm_adapter (0.0.5)
     polyglot (0.3.2)
+    postgis_adapter (0.8.1)
+      nofxx-georuby
     rack (1.2.3)
     rack-mount (0.6.14)
       rack (>= 1.0.0)
@@ -107,6 +110,7 @@ DEPENDENCIES
   annotate (= 2.4.0)
   devise
   factory_girl_rails (= 1.0)
+  postgis_adapter
   rails (= 3.0.9)
   rspec-rails (= 2.6.1)
   sqlite3
