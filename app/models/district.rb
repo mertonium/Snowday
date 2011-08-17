@@ -1,3 +1,4 @@
 class District < ActiveRecord::Base
-  has_many :notification
+  has_many :notifications, :dependent => :destroy
+  validates_presence_of :name
 end
