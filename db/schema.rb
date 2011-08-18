@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110817074255) do
+ActiveRecord::Schema.define(:version => 20110818075039) do
 
   create_table "districts", :force => true do |t|
     t.column "name", :string
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(:version => 20110817074255) do
     t.column "created_at", :datetime
     t.column "updated_at", :datetime
     t.column "geom", :multi_polygon, :srid => 4269, :null => false
+    t.column "admin_id", :integer
   end
 
   add_index "districts", ["geom"], :name => "index_districts_on_geom", :spatial=> true 
@@ -48,6 +49,5 @@ ActiveRecord::Schema.define(:version => 20110817074255) do
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
-  add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
 end
