@@ -10,10 +10,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110817074255) do
+ActiveRecord::Schema.define(:version => 20110817081614) do
 
   create_table "districts", :force => true do |t|
     t.column "name", :string
+    t.column "created_at", :datetime
+    t.column "updated_at", :datetime
+  end
+
+  create_table "districts_users", :id => false, :force => true do |t|
+    t.column "district_id", :integer
+    t.column "user_id", :integer
     t.column "created_at", :datetime
     t.column "updated_at", :datetime
   end
