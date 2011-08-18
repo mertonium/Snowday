@@ -6,9 +6,8 @@ gem 'rails', '3.0.9'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'sqlite3'
-
 gem 'devise'
-
+gem 'pg'
 gem 'postgis_adapter'
 
 # Use unicorn as the web server

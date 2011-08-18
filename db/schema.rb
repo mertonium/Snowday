@@ -14,9 +14,14 @@ ActiveRecord::Schema.define(:version => 20110817081614) do
 
   create_table "districts", :force => true do |t|
     t.column "name", :string
+    t.column "state", :string
+    t.column "state_abbr", :string
     t.column "created_at", :datetime
     t.column "updated_at", :datetime
+    t.column "geom", :multi_polygon, :srid => 4269, :null => false
   end
+  
+  add_index "districts", ["geom"], :name => "index_districts_on_geom", :spatial=> true 
 
   create_table "districts_users", :id => false, :force => true do |t|
     t.column "district_id", :integer
@@ -33,7 +38,23 @@ ActiveRecord::Schema.define(:version => 20110817081614) do
     t.column "district_id", :integer
   end
 
-# Could not dump table "users" because of following ArgumentError
-#   wrong number of arguments (4 for 5) ["/Users/mertonium/.rvm/gems/ruby-1.9.2-p180/gems/postgis_adapter-0.8.1/lib/postgis_adapter/common_spatial_adapter.rb:14:in `initialize'", "/Users/mertonium/.rvm/gems/ruby-1.9.2-p180/gems/activerecord-3.0.9/lib/active_record/connection_adapters/sqlite_adapter.rb:193:in `new'", "/Users/mertonium/.rvm/gems/ruby-1.9.2-p180/gems/activerecord-3.0.9/lib/active_record/connection_adapters/sqlite_adapter.rb:193:in `block in indexes'", "/Users/mertonium/.rvm/gems/ruby-1.9.2-p180/gems/activerecord-3.0.9/lib/active_record/connection_adapters/sqlite_adapter.rb:192:in `map'", "/Users/mertonium/.rvm/gems/ruby-1.9.2-p180/gems/activerecord-3.0.9/lib/active_record/connection_adapters/sqlite_adapter.rb:192:in `indexes'", "/Users/mertonium/.rvm/gems/ruby-1.9.2-p180/gems/postgis_adapter-0.8.1/lib/postgis_adapter/common_spatial_adapter.rb:85:in `indexes'", "/Users/mertonium/.rvm/gems/ruby-1.9.2-p180/gems/postgis_adapter-0.8.1/lib/postgis_adapter/common_spatial_adapter.rb:73:in `table'", "/Users/mertonium/.rvm/gems/ruby-1.9.2-p180/gems/activerecord-3.0.9/lib/active_record/schema_dumper.rb:75:in `block in tables'", "/Users/mertonium/.rvm/gems/ruby-1.9.2-p180/gems/activerecord-3.0.9/lib/active_record/schema_dumper.rb:66:in `each'", "/Users/mertonium/.rvm/gems/ruby-1.9.2-p180/gems/activerecord-3.0.9/lib/active_record/schema_dumper.rb:66:in `tables'", "/Users/mertonium/.rvm/gems/ruby-1.9.2-p180/gems/activerecord-3.0.9/lib/active_record/schema_dumper.rb:27:in `dump'", "/Users/mertonium/.rvm/gems/ruby-1.9.2-p180/gems/activerecord-3.0.9/lib/active_record/schema_dumper.rb:21:in `dump'", "/Users/mertonium/.rvm/gems/ruby-1.9.2-p180/gems/activerecord-3.0.9/lib/active_record/railties/databases.rake:327:in `block (4 levels) in <top (required)>'", "/Users/mertonium/.rvm/gems/ruby-1.9.2-p180/gems/activerecord-3.0.9/lib/active_record/railties/databases.rake:326:in `open'", "/Users/mertonium/.rvm/gems/ruby-1.9.2-p180/gems/activerecord-3.0.9/lib/active_record/railties/databases.rake:326:in `block (3 levels) in <top (required)>'", "/Users/mertonium/.rvm/gems/ruby-1.9.2-p180/gems/rake-0.9.2/lib/rake/task.rb:205:in `call'", "/Users/mertonium/.rvm/gems/ruby-1.9.2-p180/gems/rake-0.9.2/lib/rake/task.rb:205:in `block in execute'", "/Users/mertonium/.rvm/gems/ruby-1.9.2-p180/gems/rake-0.9.2/lib/rake/task.rb:200:in `each'", "/Users/mertonium/.rvm/gems/ruby-1.9.2-p180/gems/rake-0.9.2/lib/rake/task.rb:200:in `execute'", "/Users/mertonium/.rvm/gems/ruby-1.9.2-p180/gems/rake-0.9.2/lib/rake/task.rb:158:in `block in invoke_with_call_chain'", "/Users/mertonium/.rvm/rubies/ruby-1.9.2-p180/lib/ruby/1.9.1/monitor.rb:201:in `mon_synchronize'", "/Users/mertonium/.rvm/gems/ruby-1.9.2-p180/gems/rake-0.9.2/lib/rake/task.rb:151:in `invoke_with_call_chain'", "/Users/mertonium/.rvm/gems/ruby-1.9.2-p180/gems/rake-0.9.2/lib/rake/task.rb:144:in `invoke'", "/Users/mertonium/.rvm/gems/ruby-1.9.2-p180/gems/activerecord-3.0.9/lib/active_record/railties/databases.rake:143:in `block (2 levels) in <top (required)>'", "/Users/mertonium/.rvm/gems/ruby-1.9.2-p180/gems/rake-0.9.2/lib/rake/task.rb:205:in `call'", "/Users/mertonium/.rvm/gems/ruby-1.9.2-p180/gems/rake-0.9.2/lib/rake/task.rb:205:in `block in execute'", "/Users/mertonium/.rvm/gems/ruby-1.9.2-p180/gems/rake-0.9.2/lib/rake/task.rb:200:in `each'", "/Users/mertonium/.rvm/gems/ruby-1.9.2-p180/gems/rake-0.9.2/lib/rake/task.rb:200:in `execute'", "/Users/mertonium/.rvm/gems/ruby-1.9.2-p180/gems/rake-0.9.2/lib/rake/task.rb:158:in `block in invoke_with_call_chain'", "/Users/mertonium/.rvm/rubies/ruby-1.9.2-p180/lib/ruby/1.9.1/monitor.rb:201:in `mon_synchronize'", "/Users/mertonium/.rvm/gems/ruby-1.9.2-p180/gems/rake-0.9.2/lib/rake/task.rb:151:in `invoke_with_call_chain'", "/Users/mertonium/.rvm/gems/ruby-1.9.2-p180/gems/rake-0.9.2/lib/rake/task.rb:144:in `invoke'", "/Users/mertonium/.rvm/gems/ruby-1.9.2-p180/gems/rake-0.9.2/lib/rake/application.rb:112:in `invoke_task'", "/Users/mertonium/.rvm/gems/ruby-1.9.2-p180/gems/rake-0.9.2/lib/rake/application.rb:90:in `block (2 levels) in top_level'", "/Users/mertonium/.rvm/gems/ruby-1.9.2-p180/gems/rake-0.9.2/lib/rake/application.rb:90:in `each'", "/Users/mertonium/.rvm/gems/ruby-1.9.2-p180/gems/rake-0.9.2/lib/rake/application.rb:90:in `block in top_level'", "/Users/mertonium/.rvm/gems/ruby-1.9.2-p180/gems/rake-0.9.2/lib/rake/application.rb:129:in `standard_exception_handling'", "/Users/mertonium/.rvm/gems/ruby-1.9.2-p180/gems/rake-0.9.2/lib/rake/application.rb:84:in `top_level'", "/Users/mertonium/.rvm/gems/ruby-1.9.2-p180/gems/rake-0.9.2/lib/rake/application.rb:62:in `block in run'", "/Users/mertonium/.rvm/gems/ruby-1.9.2-p180/gems/rake-0.9.2/lib/rake/application.rb:129:in `standard_exception_handling'", "/Users/mertonium/.rvm/gems/ruby-1.9.2-p180/gems/rake-0.9.2/lib/rake/application.rb:59:in `run'", "/Users/mertonium/.rvm/gems/ruby-1.9.2-p180/gems/rake-0.9.2/bin/rake:32:in `<top (required)>'", "/Users/mertonium/.rvm/gems/ruby-1.9.2-p180/bin/rake:19:in `load'", "/Users/mertonium/.rvm/gems/ruby-1.9.2-p180/bin/rake:19:in `<main>'"]
+  create_table "users", :force => true do |t|
+    t.column "email", :string, :default => "", :null => false
+    t.column "encrypted_password", :string, :limit => 128, :default => "", :null => false
+    t.column "reset_password_token", :string
+    t.column "reset_password_sent_at", :datetime
+    t.column "remember_created_at", :datetime
+    t.column "sign_in_count", :integer, :default => 0
+    t.column "current_sign_in_at", :datetime
+    t.column "last_sign_in_at", :datetime
+    t.column "current_sign_in_ip", :string
+    t.column "last_sign_in_ip", :string
+    t.column "created_at", :datetime
+    t.column "updated_at", :datetime
+    t.column "phone", :string
+  end
+
+  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
 end

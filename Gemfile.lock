@@ -53,6 +53,7 @@ GEM
     nofxx-georuby (1.9.2)
     nokogiri (1.5.0)
     orm_adapter (0.0.5)
+    pg (0.11.0)
     polyglot (0.3.2)
     postgis_adapter (0.8.1)
       nofxx-georuby
@@ -96,7 +97,7 @@ GEM
       polyglot
       polyglot (>= 0.3.1)
     tzinfo (0.3.29)
-    warden (1.0.4)
+    warden (1.0.5)
       rack (>= 1.0)
     webrat (0.7.3)
       nokogiri (>= 1.2.0)
@@ -110,6 +111,7 @@ DEPENDENCIES
   annotate (= 2.4.0)
   devise
   factory_girl_rails (= 1.0)
+  pg
   postgis_adapter
   rails (= 3.0.9)
   rspec-rails (= 2.6.1)
