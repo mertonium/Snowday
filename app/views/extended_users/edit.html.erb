@@ -1,5 +1,4 @@
 <h2>Edit <%= resource_name.to_s.humanize %></h2>
-<% all_districts = %>
 
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
   <%= devise_error_messages! %>
@@ -16,8 +15,8 @@
   <p><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
   <%= f.password_field :current_password %></p>
   
-  <%= @districts.each do |os| %>
-    <%= check_box_tag("user[district_list][#{district.id}]", "1", @user.ditricts.detect{|d| d == os}) %>
+  <%= @districts.each do |district| %>
+    <%= check_box_tag("user[district_list][#{district.id}]", "1", @user.districts.detect{|d| d == district}) %>
     <%= "#{district.display_name}"%><br />
   <% end %>
   

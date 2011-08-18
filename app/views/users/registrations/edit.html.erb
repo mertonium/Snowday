@@ -6,14 +6,19 @@
   <p><%= f.label :email %><br />
   <%= f.email_field :email %></p>
 
+  <p><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
+  <%= f.password_field :current_password %></p>
+  
   <p><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
   <%= f.password_field :password %></p>
 
   <p><%= f.label :password_confirmation %><br />
   <%= f.password_field :password_confirmation %></p>
-
-  <p><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-  <%= f.password_field :current_password %></p>
+  
+  <%= @districts.each do |os| %>
+    <%= check_box_tag("user[districts][#{district.id}]", "1", @user.ditricts.detect{|d| d == os}) %>
+    <%= "#{district.display_name}"%><br />
+  <% end %>
 
   <p><%= f.submit "Update" %></p>
 <% end %>

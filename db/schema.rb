@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(:version => 20110818075039) do
     t.column "geom", :multi_polygon, :srid => 4269, :null => false
     t.column "admin_id", :integer
   end
-  
+
   add_index "districts", ["geom"], :name => "index_districts_on_geom", :spatial=> true 
 
   create_table "districts_users", :id => false, :force => true do |t|
