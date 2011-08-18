@@ -10,7 +10,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110818075039) do
+ActiveRecord::Schema.define(:version => 20110818235046) do
+
+  create_table "admins", :force => true do |t|
+    t.column "email", :string, :default => "", :null => false
+    t.column "encrypted_password", :string, :limit => 128, :default => "", :null => false
+    t.column "remember_created_at", :datetime
+    t.column "sign_in_count", :integer, :default => 0
+    t.column "current_sign_in_at", :datetime
+    t.column "last_sign_in_at", :datetime
+    t.column "current_sign_in_ip", :string
+    t.column "last_sign_in_ip", :string
+    t.column "created_at", :datetime
+    t.column "updated_at", :datetime
+  end
 
   create_table "districts", :force => true do |t|
     t.column "name", :string

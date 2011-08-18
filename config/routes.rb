@@ -1,12 +1,12 @@
 Snowday::Application.routes.draw do
+  devise_for :admins
+  devise_for :users, :controllers => { :registrations => "ExtendedUsers" }
+  
   resources :districts
 
   resources :notifications
 
   root :to => "home#index"
-
-  devise_for :users, :controllers => { :registrations => "ExtendedUsers" }
-  
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
