@@ -1,10 +1,10 @@
 class NotificationsController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_admin!
   
   # GET /notifications
   # GET /notifications.xml
   def index
-    @notifications = Notification.all
+    @notifications = current_admin.district.notifications
 
     respond_to do |format|
       format.html # index.html.erb
@@ -27,7 +27,7 @@ class NotificationsController < ApplicationController
   # GET /notifications/new.xml
   def new
     @notification = Notification.new
-
+    @notification.district = current_admin.district
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @notification }
@@ -43,7 +43,7 @@ class NotificationsController < ApplicationController
   # POST /notifications.xml
   def create
     @notification = Notification.new(params[:notification])
-
+    @notification.district = current_admin.district
     respond_to do |format|
       if @notification.save
         format.html { redirect_to(@notification, :notice => 'Notification was successfully created.') }
