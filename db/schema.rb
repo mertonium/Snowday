@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110818235046) do
+ActiveRecord::Schema.define(:version => 20110819005407) do
 
   create_table "admins", :force => true do |t|
     t.column "email", :string, :default => "", :null => false
@@ -23,6 +23,10 @@ ActiveRecord::Schema.define(:version => 20110818235046) do
     t.column "last_sign_in_ip", :string
     t.column "created_at", :datetime
     t.column "updated_at", :datetime
+    t.column "district_id", :integer
+    t.column "failed_attempts", :integer, :default => 0
+    t.column "unlock_token", :string
+    t.column "locked_at", :datetime
   end
 
   create_table "districts", :force => true do |t|
