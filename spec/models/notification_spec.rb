@@ -20,4 +20,8 @@ describe Notification do
     Notification.new(@attr.merge(:message => 'a' * 141)).should_not be_valid
   end
   
+  it "should require a message to have at least 5 characters" do
+    Notification.new(@attr.merge(:message => 'a' * 4)).should_not be_valid
+  end
+  
 end
