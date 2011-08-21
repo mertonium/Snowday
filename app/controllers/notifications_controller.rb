@@ -5,6 +5,7 @@ class NotificationsController < ApplicationController
   # GET /notifications.xml
   def index
     @notifications = current_admin.district.notifications
+    @subscribers = current_admin.district.users || []
 
     respond_to do |format|
       format.html # index.html.erb
@@ -28,6 +29,7 @@ class NotificationsController < ApplicationController
   def new
     @notification = Notification.new
     @notification.district = current_admin.district
+    @subscribers = current_admin.district.users || []
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @notification }
@@ -44,6 +46,8 @@ class NotificationsController < ApplicationController
   def create
     @notification = Notification.new(params[:notification])
     @notification.district = current_admin.district
+    @subscribers = current_admin.district.users || []
+
     respond_to do |format|
       if @notification.save
         format.html { redirect_to(@notification, :notice => 'Notification was successfully created.') }

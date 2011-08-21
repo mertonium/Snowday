@@ -1,5 +1,12 @@
 <h1>Send a new message for <%= @notification.district.name %></h1>
-
+<div class="subscribers-list">
+  <span class="subscriber-count"><%= @subscribers.count %></span>
+  <ul>
+  <% @subscribers.each do |subscriber| %>
+    <li><%= subscriber.email %> (<%= subscriber.phone %>)</li>
+  <% end %>
+  </ul>
+</div>
 <%= form_for(@notification) do |f| %>
   <%= render 'shared/error_messages' %>
   <div class="field">
