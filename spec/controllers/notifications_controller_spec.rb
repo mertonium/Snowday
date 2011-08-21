@@ -24,15 +24,16 @@ describe NotificationsController do
   # Notification. As you add validations to Notification, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {}
+    { :message => "This is a message." }
   end
 
   describe "GET index" do
-    it "assigns all notifications as @notifications" do
-      notification = Notification.create! valid_attributes
-      get :index
-      assigns(:notifications).should eq([notification])
-    end
+    
+    login_admin
+    
+    it "should have a current admin user" 
+    
+    it "assigns all notifications associated with the admin user as @notifications" 
   end
 
   describe "GET show" do
