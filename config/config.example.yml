@@ -1,0 +1,14 @@
+development:
+  sms_user: smsify_username
+  sms_password: smsify_password
+  sms_phone: 5555551234
+
+test:
+  sms_user: smsify_username
+  sms_password: smsify_password
+  sms_phone: 5555551234
+
+production:
+  sms_user: smsify_username
+  sms_password: smsify_password
+  sms_phone: 5555551234
