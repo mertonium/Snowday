@@ -10,6 +10,7 @@ gem 'devise'
 gem 'pg'
 gem 'postgis_adapter'
 gem 'smsified', '0.1.6'
+gem 'will_paginate', '2.3.15'
 
 # Use unicorn as the web server
 # gem 'unicorn'

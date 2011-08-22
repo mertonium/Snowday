@@ -2,7 +2,8 @@
 
 <table>
   <tr>
-    <th>Name</th>
+    <th>School District</th>
+    <th>State</th>
     <th></th>
     <th></th>
     <th></th>
@@ -11,13 +12,14 @@
 <% @districts.each do |district| %>
   <tr>
     <td><%= district.name %></td>
+    <td><%= district.state_abbr %>
     <td><%= link_to 'Show', district %></td>
     <td><%= link_to 'Edit', edit_district_path(district) %></td>
     <td><%= link_to 'Destroy', district, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
-
+<%= will_paginate @districts %>
 <br />
 
 <%= link_to 'New District', new_district_path %>

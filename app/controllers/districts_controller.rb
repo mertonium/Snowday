@@ -2,7 +2,8 @@ class DistrictsController < ApplicationController
   # GET /districts
   # GET /districts.xml
   def index
-    @districts = District.all
+    @districts = District.all.paginate :page => params[:page]
+    #@districts = District.all
 
     respond_to do |format|
       format.html # index.html.erb
