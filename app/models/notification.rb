@@ -8,10 +8,25 @@ class Notification < ActiveRecord::Base
   private
 
     def send_text
+      # Set the SMSified vars
       sms_user = APP_CONFIG['sms_user'] || 'foo'
       sms_password = APP_CONFIG['sms_password'] || 'secret'
       sender_phone = APP_CONFIG['sms_phone'] || '555-555-1212'
-      oneapi = Smsified::OneAPI.new(:username => sms_user, :password => sms_password)
-      oneapi.send_sms :address => ['3192172583','4155251254'], :message => 'You are hot <3', :sender_address => sender_phone
+      
+      # Array of phone numbers from subscribers
+      receivers = [];
+      
+      # Get the subscribers to this district
+      subscribers = self.district.users
+
+      # Only text if there are subscribers
+      if subscribers.count > 0 
+        subscribers.each do |subscriber|
+          receivers.push(subscriber.phone)
+        end
+        oneapi = Smsified::OneAPI.new(:username => sms_user, :password => sms_password)
+        oneapi.send_sms :address => receivers, :message => message, :sender_address => sender_phone
+      end
+      
     end
 end
