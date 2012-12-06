@@ -20,138 +20,143 @@ require 'spec_helper'
 
 describe DistrictsController do
 
-  # This should return the minimal set of attributes required to create a valid
-  # District. As you add validations to District, be sure to
-  # update the return value of this method accordingly.
-  def valid_attributes
-    {}
+  before(:each) do
+    @attr = { :name => 'Glasgow School District', :state => "Iowa", :state_abbr => "IA", :geom => 'fakegeom', :admin_id => 1 }
   end
-
-  describe "GET index" do
-    it "assigns all districts as @districts" do
-      district = District.create! valid_attributes
-      get :index
+  
+  describe "GET listing" do
+    it "assigns all districts to a given state_abbr to @districts" do
+      district = District.create! @attr
+      get :listing, :state_abbr => "IA"
       assigns(:districts).should eq([district])
     end
   end
 
-  describe "GET show" do
-    it "assigns the requested district as @district" do
-      district = District.create! valid_attributes
-      get :show, :id => district.id.to_s
-      assigns(:district).should eq(district)
-    end
-  end
-
-  describe "GET new" do
-    it "assigns a new district as @district" do
-      get :new
-      assigns(:district).should be_a_new(District)
-    end
-  end
-
-  describe "GET edit" do
-    it "assigns the requested district as @district" do
-      district = District.create! valid_attributes
-      get :edit, :id => district.id.to_s
-      assigns(:district).should eq(district)
-    end
-  end
-
-  describe "POST create" do
-    describe "with valid params" do
-      it "creates a new District" do
-        expect {
-          post :create, :district => valid_attributes
-        }.to change(District, :count).by(1)
-      end
-
-      it "assigns a newly created district as @district" do
-        post :create, :district => valid_attributes
-        assigns(:district).should be_a(District)
-        assigns(:district).should be_persisted
-      end
-
-      it "redirects to the created district" do
-        post :create, :district => valid_attributes
-        response.should redirect_to(District.last)
-      end
-    end
-
-    describe "with invalid params" do
-      it "assigns a newly created but unsaved district as @district" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        District.any_instance.stub(:save).and_return(false)
-        post :create, :district => {}
-        assigns(:district).should be_a_new(District)
-      end
-
-      it "re-renders the 'new' template" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        District.any_instance.stub(:save).and_return(false)
-        post :create, :district => {}
-        response.should render_template("new")
-      end
-    end
-  end
-
-  describe "PUT update" do
-    describe "with valid params" do
-      it "updates the requested district" do
-        district = District.create! valid_attributes
-        # Assuming there are no other districts in the database, this
-        # specifies that the District created on the previous line
-        # receives the :update_attributes message with whatever params are
-        # submitted in the request.
-        District.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, :id => district.id, :district => {'these' => 'params'}
-      end
-
-      it "assigns the requested district as @district" do
-        district = District.create! valid_attributes
-        put :update, :id => district.id, :district => valid_attributes
-        assigns(:district).should eq(district)
-      end
-
-      it "redirects to the district" do
-        district = District.create! valid_attributes
-        put :update, :id => district.id, :district => valid_attributes
-        response.should redirect_to(district)
-      end
-    end
-
-    describe "with invalid params" do
-      it "assigns the district as @district" do
-        district = District.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        District.any_instance.stub(:save).and_return(false)
-        put :update, :id => district.id.to_s, :district => {}
-        assigns(:district).should eq(district)
-      end
-
-      it "re-renders the 'edit' template" do
-        district = District.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        District.any_instance.stub(:save).and_return(false)
-        put :update, :id => district.id.to_s, :district => {}
-        response.should render_template("edit")
-      end
-    end
-  end
-
-  describe "DELETE destroy" do
-    it "destroys the requested district" do
-      district = District.create! valid_attributes
-      expect {
-        delete :destroy, :id => district.id.to_s
-      }.to change(District, :count).by(-1)
-    end
-
-    it "redirects to the districts list" do
-      district = District.create! valid_attributes
-      delete :destroy, :id => district.id.to_s
-      response.should redirect_to(districts_url)
-    end
-  end
+  # describe "GET index" do
+  #   it "assigns all districts as @districts" do
+  #     district = District.create! valid_attributes
+  #     get :index
+  #     assigns(:districts).should eq([district])
+  #   end
+  # end
+  # 
+  # describe "GET show" do
+  #   it "assigns the requested district as @district" do
+  #     district = District.create! valid_attributes
+  #     get :show, :id => district.id.to_s
+  #     assigns(:district).should eq(district)
+  #   end
+  # end
+  # 
+  # describe "GET new" do
+  #   it "assigns a new district as @district" do
+  #     get :new
+  #     assigns(:district).should be_a_new(District)
+  #   end
+  # end
+  # 
+  # describe "GET edit" do
+  #   it "assigns the requested district as @district" do
+  #     district = District.create! valid_attributes
+  #     get :edit, :id => district.id.to_s
+  #     assigns(:district).should eq(district)
+  #   end
+  # end
+  # 
+  # describe "POST create" do
+  #   describe "with valid params" do
+  #     it "creates a new District" do
+  #       expect {
+  #         post :create, :district => valid_attributes
+  #       }.to change(District, :count).by(1)
+  #     end
+  # 
+  #     it "assigns a newly created district as @district" do
+  #       post :create, :district => valid_attributes
+  #       assigns(:district).should be_a(District)
+  #       assigns(:district).should be_persisted
+  #     end
+  # 
+  #     it "redirects to the created district" do
+  #       post :create, :district => valid_attributes
+  #       response.should redirect_to(District.last)
+  #     end
+  #   end
+  # 
+  #   describe "with invalid params" do
+  #     it "assigns a newly created but unsaved district as @district" do
+  #       # Trigger the behavior that occurs when invalid params are submitted
+  #       District.any_instance.stub(:save).and_return(false)
+  #       post :create, :district => {}
+  #       assigns(:district).should be_a_new(District)
+  #     end
+  # 
+  #     it "re-renders the 'new' template" do
+  #       # Trigger the behavior that occurs when invalid params are submitted
+  #       District.any_instance.stub(:save).and_return(false)
+  #       post :create, :district => {}
+  #       response.should render_template("new")
+  #     end
+  #   end
+  # end
+  # 
+  # describe "PUT update" do
+  #   describe "with valid params" do
+  #     it "updates the requested district" do
+  #       district = District.create! valid_attributes
+  #       # Assuming there are no other districts in the database, this
+  #       # specifies that the District created on the previous line
+  #       # receives the :update_attributes message with whatever params are
+  #       # submitted in the request.
+  #       District.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
+  #       put :update, :id => district.id, :district => {'these' => 'params'}
+  #     end
+  # 
+  #     it "assigns the requested district as @district" do
+  #       district = District.create! valid_attributes
+  #       put :update, :id => district.id, :district => valid_attributes
+  #       assigns(:district).should eq(district)
+  #     end
+  # 
+  #     it "redirects to the district" do
+  #       district = District.create! valid_attributes
+  #       put :update, :id => district.id, :district => valid_attributes
+  #       response.should redirect_to(district)
+  #     end
+  #   end
+  # 
+  #   describe "with invalid params" do
+  #     it "assigns the district as @district" do
+  #       district = District.create! valid_attributes
+  #       # Trigger the behavior that occurs when invalid params are submitted
+  #       District.any_instance.stub(:save).and_return(false)
+  #       put :update, :id => district.id.to_s, :district => {}
+  #       assigns(:district).should eq(district)
+  #     end
+  # 
+  #     it "re-renders the 'edit' template" do
+  #       district = District.create! valid_attributes
+  #       # Trigger the behavior that occurs when invalid params are submitted
+  #       District.any_instance.stub(:save).and_return(false)
+  #       put :update, :id => district.id.to_s, :district => {}
+  #       response.should render_template("edit")
+  #     end
+  #   end
+  # end
+  # 
+  # describe "DELETE destroy" do
+  #   it "destroys the requested district" do
+  #     district = District.create! valid_attributes
+  #     expect {
+  #       delete :destroy, :id => district.id.to_s
+  #     }.to change(District, :count).by(-1)
+  #   end
+  # 
+  #   it "redirects to the districts list" do
+  #     district = District.create! valid_attributes
+  #     delete :destroy, :id => district.id.to_s
+  #     response.should redirect_to(districts_url)
+  #   end
+  # end
 
 end

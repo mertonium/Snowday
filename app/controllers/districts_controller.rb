@@ -1,13 +1,17 @@
 class DistrictsController < ApplicationController
+  
   # GET /districts
   # GET /districts.xml
   def index
-    @districts = District.all.paginate :page => params[:page]
-    #@districts = District.all
-
+    if params[:state_abbr]
+      @districts = District.where(:state_abbr => params[:state_abbr])
+    else
+      @districts = District.all.paginate :page => params[:page]
+    end
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @districts }
+      format.json { render :json => @districts }
     end
   end
 

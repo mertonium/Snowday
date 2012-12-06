@@ -23,136 +23,144 @@ describe NotificationsController do
   # This should return the minimal set of attributes required to create a valid
   # Notification. As you add validations to Notification, be sure to
   # update the return value of this method accordingly.
-  def valid_attributes
-    { :message => "This is a message." }
-  end
+  
+  
 
   describe "GET index" do
+    before do
+      @attr = { :message => "This is a message." }
+    end
     
     login_admin
+  
+    it "should have a current admin user" do
+      subject.current_admin.should_not be_nil
+    end
     
-    it "should have a current admin user" 
-    
-    it "assigns all notifications associated with the admin user as @notifications" 
-  end
-
-  describe "GET show" do
-    it "assigns the requested notification as @notification" do
-      notification = Notification.create! valid_attributes
-      get :show, :id => notification.id.to_s
-      assigns(:notification).should eq(notification)
+    it "assigns all notifications associated with the admin user as @notifications" do
+      notes = subject.current_admin.district.notifications
+      get :index
+      assigns(:notifications).should eq(notes)
     end
   end
 
-  describe "GET new" do
-    it "assigns a new notification as @notification" do
-      get :new
-      assigns(:notification).should be_a_new(Notification)
-    end
-  end
-
-  describe "GET edit" do
-    it "assigns the requested notification as @notification" do
-      notification = Notification.create! valid_attributes
-      get :edit, :id => notification.id.to_s
-      assigns(:notification).should eq(notification)
-    end
-  end
-
-  describe "POST create" do
-    describe "with valid params" do
-      it "creates a new Notification" do
-        expect {
-          post :create, :notification => valid_attributes
-        }.to change(Notification, :count).by(1)
-      end
-
-      it "assigns a newly created notification as @notification" do
-        post :create, :notification => valid_attributes
-        assigns(:notification).should be_a(Notification)
-        assigns(:notification).should be_persisted
-      end
-
-      it "redirects to the created notification" do
-        post :create, :notification => valid_attributes
-        response.should redirect_to(Notification.last)
-      end
-    end
-
-    describe "with invalid params" do
-      it "assigns a newly created but unsaved notification as @notification" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        Notification.any_instance.stub(:save).and_return(false)
-        post :create, :notification => {}
-        assigns(:notification).should be_a_new(Notification)
-      end
-
-      it "re-renders the 'new' template" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        Notification.any_instance.stub(:save).and_return(false)
-        post :create, :notification => {}
-        response.should render_template("new")
-      end
-    end
-  end
-
-  describe "PUT update" do
-    describe "with valid params" do
-      it "updates the requested notification" do
-        notification = Notification.create! valid_attributes
-        # Assuming there are no other notifications in the database, this
-        # specifies that the Notification created on the previous line
-        # receives the :update_attributes message with whatever params are
-        # submitted in the request.
-        Notification.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, :id => notification.id, :notification => {'these' => 'params'}
-      end
-
-      it "assigns the requested notification as @notification" do
-        notification = Notification.create! valid_attributes
-        put :update, :id => notification.id, :notification => valid_attributes
-        assigns(:notification).should eq(notification)
-      end
-
-      it "redirects to the notification" do
-        notification = Notification.create! valid_attributes
-        put :update, :id => notification.id, :notification => valid_attributes
-        response.should redirect_to(notification)
-      end
-    end
-
-    describe "with invalid params" do
-      it "assigns the notification as @notification" do
-        notification = Notification.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        Notification.any_instance.stub(:save).and_return(false)
-        put :update, :id => notification.id.to_s, :notification => {}
-        assigns(:notification).should eq(notification)
-      end
-
-      it "re-renders the 'edit' template" do
-        notification = Notification.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        Notification.any_instance.stub(:save).and_return(false)
-        put :update, :id => notification.id.to_s, :notification => {}
-        response.should render_template("edit")
-      end
-    end
-  end
-
-  describe "DELETE destroy" do
-    it "destroys the requested notification" do
-      notification = Notification.create! valid_attributes
-      expect {
-        delete :destroy, :id => notification.id.to_s
-      }.to change(Notification, :count).by(-1)
-    end
-
-    it "redirects to the notifications list" do
-      notification = Notification.create! valid_attributes
-      delete :destroy, :id => notification.id.to_s
-      response.should redirect_to(notifications_url)
-    end
-  end
+  # describe "GET show" do
+  #     it "assigns the requested notification as @notification" do
+  #       notification = Notification.create! valid_attributes
+  #       get :show, :id => notification.id.to_s
+  #       assigns(:notification).should eq(notification)
+  #     end
+  #   end
+  # 
+  #   describe "GET new" do
+  #     it "assigns a new notification as @notification" do
+  #       get :new
+  #       assigns(:notification).should be_a_new(Notification)
+  #     end
+  #   end
+  # 
+  #   describe "GET edit" do
+  #     it "assigns the requested notification as @notification" do
+  #       notification = Notification.create! valid_attributes
+  #       get :edit, :id => notification.id.to_s
+  #       assigns(:notification).should eq(notification)
+  #     end
+  #   end
+  # 
+  #   describe "POST create" do
+  #     describe "with valid params" do
+  #       it "creates a new Notification" do
+  #         expect {
+  #           post :create, :notification => valid_attributes
+  #         }.to change(Notification, :count).by(1)
+  #       end
+  # 
+  #       it "assigns a newly created notification as @notification" do
+  #         post :create, :notification => valid_attributes
+  #         assigns(:notification).should be_a(Notification)
+  #         assigns(:notification).should be_persisted
+  #       end
+  # 
+  #       it "redirects to the created notification" do
+  #         post :create, :notification => valid_attributes
+  #         response.should redirect_to(Notification.last)
+  #       end
+  #     end
+  # 
+  #     describe "with invalid params" do
+  #       it "assigns a newly created but unsaved notification as @notification" do
+  #         # Trigger the behavior that occurs when invalid params are submitted
+  #         Notification.any_instance.stub(:save).and_return(false)
+  #         post :create, :notification => {}
+  #         assigns(:notification).should be_a_new(Notification)
+  #       end
+  # 
+  #       it "re-renders the 'new' template" do
+  #         # Trigger the behavior that occurs when invalid params are submitted
+  #         Notification.any_instance.stub(:save).and_return(false)
+  #         post :create, :notification => {}
+  #         response.should render_template("new")
+  #       end
+  #     end
+  #   end
+  # 
+  #   describe "PUT update" do
+  #     describe "with valid params" do
+  #       it "updates the requested notification" do
+  #         notification = Notification.create! valid_attributes
+  #         # Assuming there are no other notifications in the database, this
+  #         # specifies that the Notification created on the previous line
+  #         # receives the :update_attributes message with whatever params are
+  #         # submitted in the request.
+  #         Notification.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
+  #         put :update, :id => notification.id, :notification => {'these' => 'params'}
+  #       end
+  # 
+  #       it "assigns the requested notification as @notification" do
+  #         notification = Notification.create! valid_attributes
+  #         put :update, :id => notification.id, :notification => valid_attributes
+  #         assigns(:notification).should eq(notification)
+  #       end
+  # 
+  #       it "redirects to the notification" do
+  #         notification = Notification.create! valid_attributes
+  #         put :update, :id => notification.id, :notification => valid_attributes
+  #         response.should redirect_to(notification)
+  #       end
+  #     end
+  # 
+  #     describe "with invalid params" do
+  #       it "assigns the notification as @notification" do
+  #         notification = Notification.create! valid_attributes
+  #         # Trigger the behavior that occurs when invalid params are submitted
+  #         Notification.any_instance.stub(:save).and_return(false)
+  #         put :update, :id => notification.id.to_s, :notification => {}
+  #         assigns(:notification).should eq(notification)
+  #       end
+  # 
+  #       it "re-renders the 'edit' template" do
+  #         notification = Notification.create! valid_attributes
+  #         # Trigger the behavior that occurs when invalid params are submitted
+  #         Notification.any_instance.stub(:save).and_return(false)
+  #         put :update, :id => notification.id.to_s, :notification => {}
+  #         response.should render_template("edit")
+  #       end
+  #     end
+  #   end
+  # 
+  #   describe "DELETE destroy" do
+  #     it "destroys the requested notification" do
+  #       notification = Notification.create! valid_attributes
+  #       expect {
+  #         delete :destroy, :id => notification.id.to_s
+  #       }.to change(Notification, :count).by(-1)
+  #     end
+  # 
+  #     it "redirects to the notifications list" do
+  #       notification = Notification.create! valid_attributes
+  #       delete :destroy, :id => notification.id.to_s
+  #       response.should redirect_to(notifications_url)
+  #     end
+  #   end
 
 end
